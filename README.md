@@ -215,3 +215,6 @@ Figma：[GiBook_画面遷移図](https://www.figma.com/board/rJopF6XuUE1eFBJL2H5
 ### 各画面の作り込み
 - [x] 必要なボタンやフォームが確認できるくらい作り込めているか？
 - [x] 作り込みはある程度完了している（Figmaを見て画面の作成ができる状態にある）
+
+### ER図
+[GiBook_ER図](https://dbdiagram.io/d/GiBook-675faf70e763df1f00070ceb)
