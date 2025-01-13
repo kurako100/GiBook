@@ -1,7 +1,9 @@
 <h1>Welcome to GiBook!</h1>
 <p>This is your application's homepage.</p>
 <% if user_signed_in? %>
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <%= form_with url: destroy_user_session_path, method: :delete do %>
+    <%= submit_tag "ログアウト" %>
+  <% end %>
 <% else %>
   <%= link_to "ログイン", new_user_session_path %>
   <%= link_to "サインアップ", new_user_registration_path %>

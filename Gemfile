@@ -57,3 +57,7 @@ group :test do
 end
 
 gem 'devise', '~> 4.9.2'
+
+group :development do
+  gem 'letter_opener'
+end
