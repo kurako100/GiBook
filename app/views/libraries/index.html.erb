@@ -1,0 +1,19 @@
+<h1>図書室一覧</h1>
+<ul>
+  <% @libraries.each do |library| %>
+    <li>
+      <%= link_to library.name, library_path(library) %>
+      <p><%= library.description %></p>
+    </li>
+  <% end %>
+</ul>
+
+<hr>
+<div class="footer">
+  <% if user_signed_in? %>
+    <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-link" %>
+  <% else %>
+    <%= link_to "サインアップ", new_user_registration_path, class: "btn btn-link" %>
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-link" %>
+  <% end %>
+</div>
