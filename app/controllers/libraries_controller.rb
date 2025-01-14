@@ -14,7 +14,7 @@ class LibrariesController < ApplicationController
   def create
     @library = Library.new(library_params)
     if @library.save
-      redirect_to @library, notice: 'Library created successfully.'
+      redirect_to @library, notice: "Library created successfully."
     else
       render :new
     end
@@ -27,7 +27,7 @@ class LibrariesController < ApplicationController
   def update
     @library = Library.find(params[:id])
     if @library.update(library_params)
-      redirect_to @library, notice: 'Library updated successfully.'
+      redirect_to @library, notice: "Library updated successfully."
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class LibrariesController < ApplicationController
   def destroy
     @library = Library.find(params[:id])
     @library.destroy
-    redirect_to libraries_path, notice: 'Library deleted successfully.'
+    redirect_to libraries_path, notice: "Library deleted successfully."
   end
 
   private
