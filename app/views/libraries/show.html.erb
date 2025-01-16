@@ -1,3 +1,19 @@
 <h1><%= @library.name %></h1>
 <p><%= @library.description %></p>
 <%= link_to '図書室一覧に戻る', libraries_path %>
+
+<h2>書籍一覧</h2>
+<% if @books.any? %>
+  <ul>
+    <% @books.each do |book| %>
+      <li>
+        <%= link_to book.title, book_path(book) %> by <%= book.author %> 
+        (<%= book.user.name if book.user %>)
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>この図書室にはまだ書籍がありません。</p>
+<% end %>
+
+<%= link_to '書籍を投稿する', new_book_path %>

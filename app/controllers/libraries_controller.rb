@@ -1,10 +1,12 @@
 class LibrariesController < ApplicationController
+  before_action :set_library, only: %i[show edit update destroy]
+
   def index
     @libraries = Library.all
   end
 
   def show
-    @library = Library.find(params[:id])
+    @books = @library.books  # 図書室に紐付いた書籍を取得
   end
 
   def new
@@ -12,6 +14,7 @@ class LibrariesController < ApplicationController
   end
 
   def create
+    # 現在はデフォルトの図書室を使用するが、MVP後はユーザーが図書室を作成できるようにする予定
     @library = Library.new(library_params)
     if @library.save
       redirect_to @library, notice: "Library created successfully."
@@ -21,11 +24,9 @@ class LibrariesController < ApplicationController
   end
 
   def edit
-    @library = Library.find(params[:id])
   end
 
   def update
-    @library = Library.find(params[:id])
     if @library.update(library_params)
       redirect_to @library, notice: "Library updated successfully."
     else
@@ -34,12 +35,15 @@ class LibrariesController < ApplicationController
   end
 
   def destroy
-    @library = Library.find(params[:id])
     @library.destroy
     redirect_to libraries_path, notice: "Library deleted successfully."
   end
 
   private
+
+  def set_library
+    @library = Library.find(params[:id])
+  end
 
   def library_params
     params.require(:library).permit(:name, :description)
