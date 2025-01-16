@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   # 図書室のCRUDルート
   resources :libraries
+  resources :books
 
   # トップページを図書室一覧に設定
   root "libraries#index"
