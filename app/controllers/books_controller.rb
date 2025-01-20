@@ -15,9 +15,9 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to @book, notice: '書籍が正常に投稿されました。'
+      redirect_to @book, notice: "書籍を投稿しました。"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

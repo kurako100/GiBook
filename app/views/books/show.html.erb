@@ -1,0 +1,8 @@
+<h1><%= @book.title %></h1>
+<p><strong>著者:</strong> <%= @book.author %></p>
+<p><strong>コメント:</strong> <%= @book.comment %></p>
+<p><strong>図書室:</strong> <%= @book.library.name %></p>
+<p><strong>投稿者ID:</strong> <%= @book.user_id %></p>
+
+<%= link_to '書籍一覧に戻る', books_path %>
+<%= link_to '図書室に戻る', library_path(@book.library) %>
