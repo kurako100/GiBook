@@ -1,12 +1,11 @@
 <h1>書籍一覧</h1>
-<%= link_to '新しい書籍を投稿する', new_book_path %>
-
+<%= link_to '新しい書籍を登録する', new_book_path %>
 <ul>
   <% @books.each do |book| %>
     <li>
-      <%= link_to book.title, book %>
+      <%= link_to book.title, book_path(book) %>
       (<%= link_to '編集', edit_book_path(book) %>, 
-      <%= link_to '削除', book, method: :delete, data: { confirm: '本当に削除しますか？' } %>)
+      <%= button_to "削除", book_path(book), method: :delete, data: { confirm: "本当に削除しますか？" } %>)
     </li>
   <% end %>
 </ul>
