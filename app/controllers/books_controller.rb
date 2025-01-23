@@ -1,11 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
 
-  # 書籍一覧表示
-  def index
-    @books = Book.all
-  end
-
   # 書籍詳細表示
   def show
   end
@@ -18,8 +13,10 @@ class BooksController < ApplicationController
   # 書籍作成処理
   def create
     @book = Book.new(book_params)
+    @book.user = current_user # ログイン中のユーザーを設定
+
     if @book.save
-      redirect_to books_path, notice: '書籍を登録しました。'
+      redirect_to library_path(@book.library_id), notice: '書籍を登録しました。'
     else
       render :new
     end
@@ -40,8 +37,12 @@ class BooksController < ApplicationController
 
   # 書籍削除処理
   def destroy
-    @book.destroy
-    redirect_to books_path, notice: "書籍を削除しました。"
+    if @book.user_id == current_user.id
+      @book.destroy
+      redirect_to books_path, notice: "書籍を削除しました。"
+    else
+      redirect_to books_path, alert: "他のユーザーの書籍情報は削除できません。"
+    end
   end
 
   private
@@ -53,6 +54,6 @@ class BooksController < ApplicationController
 
   # 許可されたパラメータ
   def book_params
-    params.require(:book).permit(:title, :author, :comment, :library_id, :user_id)
+    params.require(:book).permit(:title, :author, :comment, :library_id) # user_idを除外
   end
 end
