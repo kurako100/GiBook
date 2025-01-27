@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
+  before_action :authorize_user, only: %i[edit update destroy]
 
   # 書籍詳細表示
   def show
@@ -37,23 +38,26 @@ class BooksController < ApplicationController
 
   # 書籍削除処理
   def destroy
-    if @book.user_id == current_user.id
-      @book.destroy
-      redirect_to books_path, notice: "書籍を削除しました。"
-    else
-      redirect_to books_path, alert: "他のユーザーの書籍情報は削除できません。"
-    end
+    @book.destroy
+    redirect_to library_path(@book.library_id), notice: '書籍を削除しました。'
   end
 
   private
 
-  # 共通処理：指定された書籍を取得
+  # 共通処理: 指定された書籍を取得
   def set_book
     @book = Book.find(params[:id])
   end
 
   # 許可されたパラメータ
   def book_params
-    params.require(:book).permit(:title, :author, :comment, :library_id) # user_idを除外
+    params.require(:book).permit(:title, :author, :comment, :library_id)
+  end
+
+  # ユーザーが書籍の所有者か確認
+  def authorize_user
+    unless @book.user == current_user
+      redirect_to library_path(@book.library_id), alert: '他のユーザーの書籍情報は編集・削除できません。'
+    end
   end
 end

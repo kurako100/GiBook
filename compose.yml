@@ -7,14 +7,15 @@ services:
       TZ: Asia/Tokyo
       POSTGRES_PASSWORD: password
     volumes:
-      - postgresql_data:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d myapp_development -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
+
   web:
     build:
       context: .
@@ -28,11 +29,13 @@ services:
       - node_modules:/myapp/node_modules
     environment:
       TZ: Asia/Tokyo
+      DATABASE_URL: postgresql://gibook_user:e1Rkd4IdxWhc8Z6copPl8wdxxvaTXy6v@db/gibook_production
     ports:
       - "3000:3000"
     depends_on:
       db:
         condition: service_healthy
+
 volumes:
   bundle_data:
   postgresql_data:
