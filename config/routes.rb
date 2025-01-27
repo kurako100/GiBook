@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: [:passwords]
+  devise_for :users, skip: [ :passwords ]
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/*
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # 図書室のCRUDルート
   resources :libraries
-  resources :books, except: [:index]
+  resources :books, except: [ :index ]
 
   # トップページを図書室一覧に設定
   root "libraries#index"

@@ -17,7 +17,7 @@ class BooksController < ApplicationController
     @book.user = current_user # ログイン中のユーザーを設定
 
     if @book.save
-      redirect_to library_path(@book.library_id), notice: '書籍を登録しました。'
+      redirect_to library_path(@book.library_id), notice: "書籍を登録しました。"
     else
       render :new
     end
@@ -30,7 +30,7 @@ class BooksController < ApplicationController
   # 書籍更新処理
   def update
     if @book.update(book_params)
-      redirect_to book_path(@book), notice: '書籍を更新しました。'
+      redirect_to book_path(@book), notice: "書籍を更新しました。"
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class BooksController < ApplicationController
   # 書籍削除処理
   def destroy
     @book.destroy
-    redirect_to library_path(@book.library_id), notice: '書籍を削除しました。'
+    redirect_to library_path(@book.library_id), notice: "書籍を削除しました。"
   end
 
   private
@@ -57,7 +57,7 @@ class BooksController < ApplicationController
   # ユーザーが書籍の所有者か確認
   def authorize_user
     unless @book.user == current_user
-      redirect_to library_path(@book.library_id), alert: '他のユーザーの書籍情報は編集・削除できません。'
+      redirect_to library_path(@book.library_id), alert: "他のユーザーの書籍情報は編集・削除できません。"
     end
   end
 end
