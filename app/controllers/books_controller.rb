@@ -14,8 +14,8 @@ class BooksController < ApplicationController
 
   # 書籍作成処理
   def create
-    @book = Book.new(book_params)
-    @book.user = current_user # ログイン中のユーザーを設定
+    @book = current_user.books.build(book_params) # ログイン中のユーザーを設定
+    @book.library_id = Library.find_by(name: "Default Library")&.id # デフォルト図書室を自動設定
 
     if @book.save
       redirect_to library_path(@book.library_id), notice: "書籍を登録しました。"
@@ -52,7 +52,7 @@ class BooksController < ApplicationController
 
   # 許可されたパラメータ
   def book_params
-    params.require(:book).permit(:title, :author, :comment, :library_id)
+    params.require(:book).permit(:title, :author, :comment)
   end
 
   # ユーザーが書籍の所有者か確認

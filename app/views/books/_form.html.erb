@@ -23,10 +23,6 @@
     <%= f.text_area :comment %>
   </div>
   <div>
-    <%= f.label :library_id, "図書室" %>
-    <%= f.collection_select :library_id, Library.all, :id, :name %>
-  </div>
-  <div>
-    <%= f.submit "更新する" %>
+    <%= f.submit "登録する" %>
   </div>
 <% end %>

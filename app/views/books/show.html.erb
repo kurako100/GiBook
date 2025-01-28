@@ -1,7 +1,6 @@
 <h1><%= @book.title %></h1>
 <p><strong>著者:</strong> <%= @book.author %></p>
 <p><strong>コメント:</strong> <%= @book.comment %></p>
-<p><strong>図書室:</strong> <%= @book.library.name %></p>
 <p><strong>投稿者:</strong> <%= @book.user.email %></p>
 
 <% if @book.user == current_user %>
