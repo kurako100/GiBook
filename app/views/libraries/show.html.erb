@@ -1,19 +1,23 @@
-<h1><%= @library.name %></h1>
-<p><%= @library.description %></p>
-<%= link_to '図書室一覧に戻る', libraries_path %>
+<h1>📚 <%= @library.name %></h1>
+<p><%= @library.description.present? ? @library.description : "説明はありません" %></p>
 
-<h2>書籍一覧</h2>
+<%= link_to ' 図書室一覧に戻る', libraries_path %>
+
+<h2> 書籍一覧</h2>
+
 <% if @books.any? %>
   <ul>
     <% @books.each do |book| %>
       <li>
-        <%= link_to book.title, book_path(book) %> by <%= book.author %> 
-        (<%= book.user.name if book.user %>)
+        <%= link_to book.title, book_path(book) %>（著者: <%= book.author %>）
+        <% if book.user %>
+          - 登録者: <%= book.user.name %>
+        <% end %>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>この図書室にはまだ書籍がありません。</p>
+  <p> この図書室にはまだ書籍が登録されていません。</p>
 <% end %>
 
-<%= link_to '書籍を投稿する', new_book_path %>
+<%= link_to ' 書籍を投稿する', new_book_path %>

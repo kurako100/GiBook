@@ -1,7 +1,7 @@
 <%= form_with(model: book, local: true) do |f| %>
   <% if book.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(book.errors.count, 'error') %>が発生しました:</h2>
+      <h2><%= pluralize(book.errors.count, '件のエラー') %>が発生しました:</h2>
       <ul>
         <% book.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,22 +11,22 @@
   <% end %>
 
   <div>
-    <%= f.label :title %>
+    <%= f.label :title, "タイトル" %>
     <%= f.text_field :title %>
   </div>
   <div>
-    <%= f.label :author %>
+    <%= f.label :author, "著者" %>
     <%= f.text_field :author %>
   </div>
   <div>
-    <%= f.label :comment %>
+    <%= f.label :comment, "コメント" %>
     <%= f.text_area :comment %>
   </div>
   <div>
-    <%= f.label :library_id %>
+    <%= f.label :library_id, "図書室" %>
     <%= f.collection_select :library_id, Library.all, :id, :name %>
   </div>
   <div>
-    <%= f.submit %>
+    <%= f.submit "更新する" %>
   </div>
 <% end %>
