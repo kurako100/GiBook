@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!, only: %i[new create edit update destroy] # 未ログインユーザーのアクセスを制限する
   before_action :set_book, only: %i[show edit update destroy]
   before_action :authorize_user, only: %i[edit update destroy]
 
